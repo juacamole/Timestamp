@@ -3,6 +3,7 @@ package ch.luethy.juan.timestamp.controller;
 import ch.luethy.juan.timestamp.dao.Stamp;
 import ch.luethy.juan.timestamp.security.Roles;
 import ch.luethy.juan.timestamp.service.StampService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @Validated
 @RequestMapping("/stamp")
+@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class StampController {
 
