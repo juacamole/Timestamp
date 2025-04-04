@@ -1,12 +1,10 @@
-package ch.kuan.timestamp.dao;
+package ch.luethy.juan.timestamp.dao;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 @Data
 @Entity
@@ -17,6 +15,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotEmpty
+    @Column(length = 50, unique = true)
+    @Size(min = 2, max = 50)
+    private String username;
 
     @NotEmpty
     @Column(length = 20)
@@ -35,8 +38,5 @@ public class User {
     @NotEmpty
     @Column(length = 20)
     private byte workminutes;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Stamp> stamps;
 
 }

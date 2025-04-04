@@ -1,17 +1,15 @@
-package ch.kuan.timestamp.controller;
+package ch.luethy.juan.timestamp.controller;
 
-import ch.kuan.timestamp.dao.User;
-import ch.kuan.timestamp.security.Roles;
-import ch.kuan.timestamp.service.UserService;
+import ch.luethy.juan.timestamp.dao.User;
+import ch.luethy.juan.timestamp.security.Roles;
+import ch.luethy.juan.timestamp.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Role;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalTime;
 import java.util.List;
 
 @RestController

@@ -1,12 +1,11 @@
-package ch.kuan.timestamp.service;
+package ch.luethy.juan.timestamp.service;
 
-import ch.kuan.timestamp.dao.User;
-import ch.kuan.timestamp.repository.UserRepository;
+import ch.luethy.juan.timestamp.dao.User;
+import ch.luethy.juan.timestamp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 

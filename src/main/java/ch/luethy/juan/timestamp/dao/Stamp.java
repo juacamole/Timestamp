@@ -1,4 +1,4 @@
-package ch.kuan.timestamp.dao;
+package ch.luethy.juan.timestamp.dao;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -21,7 +21,7 @@ public class Stamp {
     @NotEmpty
     private LocalTime time;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "user_id")
     private User user;
 }

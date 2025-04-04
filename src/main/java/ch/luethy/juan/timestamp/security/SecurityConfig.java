@@ -1,4 +1,4 @@
-package ch.kuan.timestamp.security;
+package ch.luethy.juan.timestamp.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +41,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(new AuthenticationRoleConverter(appName))))
                 .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).csrfTokenRequestHandler(requestHandler))
-                .cors(cors -> corsConfigurer());
+                .cors(_ -> corsConfigurer());
         return http.build();
     }
 
