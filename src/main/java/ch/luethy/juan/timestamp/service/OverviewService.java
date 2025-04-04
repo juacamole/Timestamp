@@ -42,13 +42,13 @@ public class OverviewService {
         return statusMap;
     }
 
-    public LocalTime getUserWorktime(int id) {
-        User user = userRepository.findById(id).get();
+    public LocalTime getUserWorktime(int userId) {
+        User user = userRepository.findById(userId).get();
         return stampService.calculateWorktime(user.getUsername());
     }
 
-    public LocalTime getUserWorktimeLeft(int id) {
-        User user = userRepository.findById(id).get();
+    public LocalTime getUserWorktimeLeft(int userId) {
+        User user = userRepository.findById(userId).get();
         return stampService.getLeftTime(user.getUsername());
     }
 }

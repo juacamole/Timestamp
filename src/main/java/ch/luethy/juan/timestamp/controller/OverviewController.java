@@ -1,6 +1,5 @@
 package ch.luethy.juan.timestamp.controller;
 
-
 import ch.luethy.juan.timestamp.dao.Stamp;
 import ch.luethy.juan.timestamp.dao.User;
 import ch.luethy.juan.timestamp.security.Roles;
