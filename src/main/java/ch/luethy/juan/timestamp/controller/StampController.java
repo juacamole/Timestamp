@@ -57,4 +57,12 @@ public class StampController {
         return ResponseEntity.ok(service.getLeftTime(username));
     }
 
+    @GetMapping("/status")
+    @RolesAllowed(value = Roles.USER)
+    public ResponseEntity<String> getStatus(Authentication auth) {
+        Jwt jwt = (Jwt)  auth.getPrincipal();
+        String username = jwt.getClaim("preferred_username");
+        return ResponseEntity.ok(service.getStatus(username));
+    }
+
 }

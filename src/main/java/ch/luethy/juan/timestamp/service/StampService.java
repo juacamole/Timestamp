@@ -71,4 +71,13 @@ public class StampService {
         LocalTime neededWorkTime = LocalTime.of(user.getWorkhours(), user.getWorkminutes());
         return neededWorkTime.minusHours(workTime.getHour()).minusMinutes(workTime.getMinute());
     }
+
+    public String getStatus(String username) {
+        List<Stamp> stampList = stampRepository.findAllByUser(userRepository.findUserByUsername(username));
+        if (stampList.size() % 2 == 0) {
+            return "Geeked";
+        } else {
+            return "Locked in";
+        }
+    }
 }
