@@ -55,4 +55,9 @@ public class UserService {
         repository.delete(user);
         return ResponseEntity.ok(repository.findAll());
     }
+
+    public ResponseEntity<List<User>> deleteById(int id) {
+        repository.deleteById(id);
+        return ResponseEntity.ok(repository.findAll());
+    }
 }
