@@ -2,6 +2,7 @@ package ch.luethy.juan.timestamp.service;
 
 import ch.luethy.juan.timestamp.dao.Stamp;
 import ch.luethy.juan.timestamp.dao.User;
+import ch.luethy.juan.timestamp.dto.StampDto;
 import ch.luethy.juan.timestamp.repository.StampRepository;
 import ch.luethy.juan.timestamp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -79,5 +81,48 @@ public class StampService {
         } else {
             return "Locked in";
         }
+    }
+
+
+    public ResponseEntity<List<Stamp>> stampForUser(StampDto stamp) {
+        Optional<User> user = userRepository.findById(stamp.getUserid());
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else if (checkIfStampTimeIllegal(stamp)) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+        Stamp newStamp = new Stamp();
+        newStamp.setUser(user.get());
+        newStamp.setTime(LocalTime.of(stamp.getHour(), stamp.getMinute()));
+        stampRepository.save(newStamp);
+        return ResponseEntity.ok(stampRepository.findAllByUser(user.get()));
+    }
+
+    public ResponseEntity<List<Stamp>> deleteStamp(int stampId) {
+        Optional<Stamp> stamp = stampRepository.findById(stampId);
+        if (stamp.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        stampRepository.delete(stamp.get());
+        return ResponseEntity.ok(stampRepository.findAllByUser(stamp.get().getUser()));
+    }
+
+    public ResponseEntity<List<Stamp>> updateStamp(int id, StampDto stamp) {
+        Optional<Stamp> existingStamp = stampRepository.findById(id);
+        if (existingStamp.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else if (checkIfStampTimeIllegal(stamp)) {
+            return ResponseEntity.unprocessableEntity().build();
+        }
+        stampRepository.deleteById(existingStamp.get().getId());
+        Stamp newStamp = new Stamp();
+        newStamp.setUser(existingStamp.get().getUser());
+        newStamp.setTime(LocalTime.of(stamp.getHour(), stamp.getMinute()));
+        stampRepository.save(newStamp);
+        return ResponseEntity.ok(stampRepository.findAllByUser(newStamp.getUser()));
+    }
+
+    private boolean checkIfStampTimeIllegal(StampDto stamp) {
+        return stamp.getHour() >= 24 || stamp.getMinute() >= 60;
     }
 }
