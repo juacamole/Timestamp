@@ -45,7 +45,7 @@ public class StampService {
             timeList.add(stamp.getTime());
         }
         if (timeList.size() % 2 == 1) {
-            timeList.removeLast();
+            timeList.add(LocalTime.now());
         }
 
         int workHours = 0;
@@ -71,7 +71,11 @@ public class StampService {
         LocalTime workTime = calculateWorktime(username);
         User user = userRepository.findUserByUsername(username);
         LocalTime neededWorkTime = LocalTime.of(user.getWorkhours(), user.getWorkminutes());
-        return neededWorkTime.minusHours(workTime.getHour()).minusMinutes(workTime.getMinute());
+        if (neededWorkTime.minusHours(workTime.getHour()).minusMinutes(workTime.getMinute()).isAfter(neededWorkTime)) {
+            return LocalTime.of(0, 0);
+        } else {
+            return neededWorkTime.minusHours(workTime.getHour()).minusMinutes(workTime.getMinute());
+        }
     }
 
     public String getStatus(String username) {
