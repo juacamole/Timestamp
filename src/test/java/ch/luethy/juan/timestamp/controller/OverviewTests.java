@@ -69,8 +69,8 @@ public class OverviewTests {
         String body = "client_id=Timestamp&" +
                 "grant_type=password&" +
                 "scope=openid profile roles offline_access&" +
-                "username=root&" +
-                "password=Pas$123";
+                "username=test" +
+                "password=test";
 
         HttpEntity<String> entity = new HttpEntity<>(body, headers);
 
