@@ -41,14 +41,17 @@ public class UserService {
     public ResponseEntity<List<User>> update(User user, int id) {
         Optional<User> foundUser = repository.findById(id);
         if (foundUser.isPresent()) {
-            repository.delete(foundUser.get());
-            user.setId(id);
-            repository.save(user);
+            User existingUser = foundUser.get();
+            existingUser.setUsername(user.getUsername());
+            existingUser.setFirstname(user.getFirstname());
+            existingUser.setLastname(user.getLastname());
+            existingUser.setWorkhours(user.getWorkhours());
+            existingUser.setWorkminutes(user.getWorkminutes());
+            repository.save(existingUser);
             return ResponseEntity.ok(repository.findAll());
         } else {
             return ResponseEntity.notFound().build();
         }
-
     }
 
     public ResponseEntity<List<User>> delete(User user) {
